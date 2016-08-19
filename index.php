@@ -1,33 +1,74 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>To Do</title>
-    <link rel="stylesheet" href="css/main.css" media="screen" title="no title" charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-  </head>
-  <body>
+<head>
+    <title>Simple To-Do List</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
 
-    <div class = "list">
-      <h1 class = "header"> To Do </h1>
+    <div class="wrap">
 
-      <ul class="items">
-        <li>
-          <span class="item">Shopping</span>
-          <a class="done-button" href="#">Mark as Done</a>
-        </li>
-        <li>
-          <span class="item done">Sleeping</span>
-          <a href="#"></a>
-        </li>
-      </ul>
+      <h1>hey</h1>
+      <!-- TO DO LIST -->
+      <div class="task-list">
+        <ul>
+          <?php require("app/connect.php");
 
-      <form class="item-add" action="add.php" method="post">
-        <input type="text" name="name" value="" class="input" autocomplete="off" required>
-        <input type="submit" name="name" value="ADD" class="submit">
+          $query = mysql_query("SELECT * FROM tasks");
 
+          if($query)
+  $numrows = mysql_num_rows($query);
+else
+  die(mysql_error());
+    // $numrows = mysql_num_rows($query);
+
+    if($numrows>0){
+  while( $row = mysql_fetch_assoc( $query ) ){
+
+      $task_id = $row['id'];
+      $task_name = $row['task'];
+
+      echo '<li>
+                    <span>'.$task_name.'</span>
+        <img id="'.$task_id.'" class="delete-button" width="10px" src="images/close.svg" />
+     </li>';
+  }
+    }
+?>
+
+
+
+
+        </ul>
+      </div>
+
+      <!-- ADD NEW TO DO -->
+      <form class="add-new-task" autocomplete="off">
+        <input type="text" name="new-task" placeholder="Add a new item..." />
+        <!-- <input type="submit" name="name" value="Submit"> -->
       </form>
 
+
     </div>
-  </body>
+
+</body>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    add_task(); // Call the add_task function
+
+    function add_task() {
+        $('.add-new-task').submit(function(){
+          var new_task = $('.add-new-task input[name=new-task]').val();
+
+          if(new_task != ''){
+            $.post('app/add-task.php', { task: new_task }, function( data ) {
+              $('.add-new-task input[name=new-task]').val('');
+              $(data).appendTo('.task-list ul').hide().fadeIn();
+            });
+          }
+          return false; // Ensure that the form does not submit twice
+        });
+    }
+</script>
+
 </html>
