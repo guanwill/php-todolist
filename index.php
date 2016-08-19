@@ -2,6 +2,8 @@
 <head>
     <title>Simple To-Do List</title>
     <link rel="stylesheet" href="css/main.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 </head>
 <body>
 
@@ -13,30 +15,26 @@
         <ul>
           <?php require("app/connect.php");
 
-          $query = mysql_query("SELECT * FROM tasks");
+          $query = mysql_query("SELECT * FROM tasks ORDER BY date ASC");
 
-          if($query)
-  $numrows = mysql_num_rows($query);
-else
-  die(mysql_error());
-    // $numrows = mysql_num_rows($query);
+          if($query) {
+            $numrows = mysql_num_rows($query);
+          }
+          else {
+            die(mysql_error());
+          }
 
-    if($numrows>0){
-  while( $row = mysql_fetch_assoc( $query ) ){
-
-      $task_id = $row['id'];
-      $task_name = $row['task'];
-
-      echo '<li>
+          if($numrows>0){
+            while( $row = mysql_fetch_assoc( $query ) ){
+              $task_id = $row['id'];
+              $task_name = $row['task'];
+              echo '<li>
                     <span>'.$task_name.'</span>
-        <img id="'.$task_id.'" class="delete-button" width="10px" src="images/close.svg" />
-     </li>';
-  }
-    }
-?>
-
-
-
+                    <img id="'.$task_id.'" class="delete-button" width="10px" src="images/close.svg" />
+                    </li>';
+            }
+          }
+          ?>
 
         </ul>
       </div>
@@ -52,7 +50,6 @@ else
 
 </body>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     add_task(); // Call the add_task function
 
@@ -69,6 +66,20 @@ else
           return false; // Ensure that the form does not submit twice
         });
     }
+
+    delete_task(); // Call the delete_task function
+
+    function delete_task() {
+      $('.delete-button').click(function(){
+        var current_element = $(this);
+        var id = $(this).attr('id');
+
+        $.post('app/delete-task.php', { task_id: id }, function() {
+          current_element.parent().fadeOut("fast", function() { $(this).remove(); });
+        });
+      });
+    }
+
 </script>
 
 </html>
