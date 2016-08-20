@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Simple To-Do List</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="css/main.css">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -9,7 +9,7 @@
 
     <div class="wrap">
 
-      <h1>hey</h1>
+      <h1>My To Do List</h1>
       <!-- TO DO LIST -->
       <div class="task-list">
         <ul>

@@ -5,11 +5,11 @@
 
     require("connect.php"); //we link to connect.php, so we can access the database and add the new values to the tasks table.
 
-    mysql_query("INSERT INTO tasks VALUES ('', '$task', '$date')");
+    mysql_query("INSERT INTO tasks VALUES ('', '$task', '$date')"); //add the new data to task table
 
-    $query = mysql_query("SELECT * FROM tasks WHERE task='$task' and date='$date'");
+    $query = mysql_query("SELECT * FROM tasks WHERE task='$task' and date='$date'"); //query all the instances from the table
 
-    while( $row = mysql_fetch_assoc($query) ){
+    while( $row = mysql_fetch_assoc($query) ){  //Fetch a result row as an associative array. give me the value of the key
       $task_id = $row['id'];
       $task_name = $row['task'];
     }
