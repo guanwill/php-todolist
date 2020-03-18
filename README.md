@@ -1,18 +1,20 @@
-#TO DO LIST IN PHP
+_**[Learning Activity - Not Maintained]**_
 
-##Functionality
+# TO DO LIST IN PHP
+
+## Functionality
 * Just a basic to-do list where you can add and delete your tasks
 
-##Purpose
+## Purpose
 * To practice how to CRUD with PHP
 
-##Tech Stack
+## Tech Stack
 * PHP
 * MySQL
 * Sequel Pro
 * XAMPP
 
-##Resources
+## Resources
 * [Download XAMPP](https://www.apachefriends.org/download.html)
 * [How to install XAMPP](https://www.youtube.com/watch?v=TZJyHbIwjlA)
 * [Start project with XAMPP](https://syedasaraahmed.wordpress.com/2013/02/12/setting-up-xampp-and-your-project-folder/)
